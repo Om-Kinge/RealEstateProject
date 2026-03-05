@@ -1,0 +1,18 @@
+
+spring:
+ datasource:
+  url: jdbc:postgresql://localhost:5432/realestate
+  username: postgres
+  password: postgre
+
+ jpa:
+  hibernate:
+   ddl-auto: update
+  show-sql: true
+
+server:
+ port: 8080
+
+jwt:
+  secret: mysecretkey123
+  expiration: 86400000
