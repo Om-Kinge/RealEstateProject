@@ -1,7 +1,6 @@
 package com.realestate.controller;
 
 import com.realestate.entity.Appointment;
-import com.realestate.entity.AppointmentStatus;
 import com.realestate.entity.AppointmentType;
 import com.realestate.service.AppointmentService;
 
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/appointments")
+@RequestMapping("/appointments")
 public class AppointmentController {
 
     @Autowired
@@ -48,12 +47,4 @@ public class AppointmentController {
         return appointmentService.getSellerAppointments(sellerId);
     }
 
-    // Update appointment status
-    @PutMapping("/{appointmentId}/status")
-    public Appointment updateStatus(
-            @PathVariable Long appointmentId,
-            @RequestParam AppointmentStatus status) {
-
-        return appointmentService.updateStatus(appointmentId, status);
-    }
 }

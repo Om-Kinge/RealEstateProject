@@ -16,7 +16,7 @@ public class PropertyController {
     private PropertyService propertyService;
 
 
-    // PUBLIC: View all approved properties
+    // View all approved properties
     @GetMapping
     public List<Property> getAllApprovedProperties() {
         return propertyService.getApprovedProperties();

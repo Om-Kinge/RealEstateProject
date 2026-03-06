@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(request.getRole());
 
         if (request.getRole() == Role.SELLER) {
-            user.setSellerstatus(SellerStatus.PENDING);
+            user.setSellerStatus(SellerStatus.PENDING);
             user.setPaid(false);
         }
 

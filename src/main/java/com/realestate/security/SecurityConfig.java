@@ -18,6 +18,10 @@ public class SecurityConfig {
    .authorizeHttpRequests(auth -> auth
      .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/api/auth/**").permitAll()
      .requestMatchers("/auth/**").permitAll()
+     .requestMatchers("/admin/**").permitAll()
+     .requestMatchers("/seller/**").permitAll()
+     .requestMatchers("/appointments/**").permitAll()
+     .requestMatchers("/properties/**").permitAll()
      .anyRequest().authenticated()
    );
 

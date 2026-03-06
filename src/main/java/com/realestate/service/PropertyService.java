@@ -26,7 +26,7 @@ public class PropertyService {
             throw new RuntimeException("Seller must complete payment");
         }
 
-        if(seller.getSellerstatus() != SellerStatus.APPROVED){
+        if(seller.getSellerStatus() != SellerStatus.APPROVED){
             throw new RuntimeException("Seller not approved by admin");
         }
 

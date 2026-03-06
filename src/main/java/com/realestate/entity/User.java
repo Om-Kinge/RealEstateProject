@@ -68,21 +68,21 @@ public void setPaid(boolean isPaid) {
 	this.isPaid = isPaid;
 }
 
-public SellerStatus getSellerstatus() {
-	return sellerstatus;
-}
-
-public void setSellerstatus(SellerStatus sellerstatus) {
-	this.sellerstatus = sellerstatus;
-}
-
 private String password;
 
- @Enumerated(EnumType.STRING)
+ public SellerStatus getSellerStatus() {
+	return sellerStatus;
+}
+
+public void setSellerStatus(SellerStatus selleStatus) {
+	this.sellerStatus = selleStatus;
+}
+
+@Enumerated(EnumType.STRING)
  private Role role;
 
  private boolean isPaid;
  
  @Enumerated(EnumType.STRING)
- private SellerStatus sellerstatus;
+ private SellerStatus sellerStatus;
 }
