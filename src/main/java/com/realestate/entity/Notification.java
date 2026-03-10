@@ -1,81 +1,97 @@
 package com.realestate.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "notifications")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Notification {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	private String message;
 
-    @Column(length = 500)
-    private String message;
+	private boolean emailSent;
 
-    @Enumerated(EnumType.STRING)
-    private AppointmentStatus type;
+	private boolean smsSent;
 
-    @Enumerated(EnumType.STRING)
-    private DeliveryMethod deliveryMethod;
+	private boolean whatsappSent;
 
-    private Boolean isRead = false;
+	private LocalDateTime createdAt;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
+	private Long appointmentId;
 
-    public Notification() {}
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public boolean isEmailSent() {
+		return emailSent;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setEmailSent(boolean emailSent) {
+		this.emailSent = emailSent;
+	}
 
-    public AppointmentStatus getType() {
-        return type;
-    }
+	public boolean isSmsSent() {
+		return smsSent;
+	}
 
-    public void setType(AppointmentStatus type) {
-        this.type = type;
-    }
+	public void setSmsSent(boolean smsSent) {
+		this.smsSent = smsSent;
+	}
 
-    public DeliveryMethod getDeliveryMethod() {
-        return deliveryMethod;
-    }
+	public boolean isWhatsappSent() {
+		return whatsappSent;
+	}
 
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
-    public Boolean getIsRead() {
-        return isRead;
-    }
-
-    public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
+	public void setWhatsappSent(boolean whatsappSent) {
+		this.whatsappSent = whatsappSent;
 	}
 
 	public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
 }

@@ -1,10 +1,12 @@
 package com.realestate.service.impl;
 
 import com.realestate.entity.*;
+import com.realestate.exception.PropertyNotFoundException;
 import com.realestate.repository.AppointmentRepository;
 import com.realestate.repository.PropertyRepository;
 import com.realestate.repository.UserRepository;
 import com.realestate.service.AppointmentService;
+import com.realestate.service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private PropertyRepository propertyRepository;
+    
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public Appointment bookAppointment(Long buyerId,
@@ -37,7 +42,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
 
         Property property = propertyRepository.findById(propertyId)
-                .orElseThrow(() -> new RuntimeException("Property not found"));
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found"));
 
         Appointment appointment = new Appointment();
 
@@ -48,7 +53,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setType(type);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
 
-        return appointmentRepository.save(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        notificationService.sendAppointmentNotification(
+                seller,
+                savedAppointment.getId(),
+                "New appointment scheduled for property " + property.getTitle()
+        );
+        
+        return savedAppointment;
     }
 
     @Override
@@ -62,15 +75,24 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return appointmentRepository.findBySellerId(sellerId);
     }
-
-    @Override
-    public Appointment updateStatus(Long appointmentId, AppointmentStatus status) {
+    
+    public Appointment updateAppointment(Long appointmentId, String newTime) {
 
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
-        appointment.setStatus(status);
+        appointment.setAppointmentTime(newTime);
 
-        return appointmentRepository.save(appointment);
+        Appointment updatedAppointment = appointmentRepository.save(appointment);
+
+        // Send notification
+        notificationService.sendAppointmentNotification(
+                appointment.getSeller(),
+                appointment.getId(),
+                "Appointment updated. New time: " + newTime +
+                " Appointment updated for property " + appointment.getProperty().getTitle()
+        );
+
+        return updatedAppointment;
     }
 }

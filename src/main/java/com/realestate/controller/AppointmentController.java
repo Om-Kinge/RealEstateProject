@@ -46,5 +46,13 @@ public class AppointmentController {
 
         return appointmentService.getSellerAppointments(sellerId);
     }
+    
+    @PutMapping("/update/{appointmentId}")
+    public Appointment updateAppointment(
+            @PathVariable Long appointmentId,
+            @RequestParam String appointmentTime) {
+
+        return appointmentService.updateAppointment(appointmentId, appointmentTime);
+    }
 
 }

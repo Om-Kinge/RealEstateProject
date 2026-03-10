@@ -1,7 +1,6 @@
 package com.realestate.service;
 
 import com.realestate.entity.Appointment;
-import com.realestate.entity.AppointmentStatus;
 import com.realestate.entity.AppointmentType;
 
 import java.util.List;
@@ -18,5 +17,5 @@ public interface AppointmentService {
 
     List<Appointment> getSellerAppointments(Long sellerId);
 
-    Appointment updateStatus(Long appointmentId, AppointmentStatus status);
+    Appointment updateAppointment(Long appointmentId,  String newTime);
 }

@@ -54,12 +54,12 @@ public void setCity(String city) {
 	this.city = city;
 }
 
-public String getLocality() {
-	return locality;
+public String getLocation() {
+	return location;
 }
 
-public void setLocality(String locality) {
-	this.locality = locality;
+public void setlocation(String location) {
+	this.location = location;
 }
 
 public String getState() {
@@ -107,12 +107,17 @@ private String title;
  private String configuration;
 
  private String city;
- private String locality;
+ private String location;
  private String state;
 
  private LocalDate possessionDate;
 
  private boolean Ispremium;
+ 
+ // mocked map fields
+ private Double latitude;
+
+ private Double longitude;
 
  @Enumerated(EnumType.STRING)
  private PropertyStatus status;

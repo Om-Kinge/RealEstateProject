@@ -1,9 +1,13 @@
 package com.realestate.controller;
 
 import com.realestate.entity.User;
+import com.realestate.entity.Appointment;
 import com.realestate.entity.Property;
 import com.realestate.entity.PropertyStatus;
 import com.realestate.entity.SellerStatus;
+import com.realestate.exception.PropertyNotFoundException;
+import com.realestate.exception.ResourceNotFoundException;
+import com.realestate.repository.AppointmentRepository;
 import com.realestate.repository.PropertyRepository;
 import com.realestate.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +26,20 @@ public class AdminController {
     
     @Autowired
     private PropertyRepository propertyRepository;
+    
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     //  Get all users
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+    
+//  Get all appointments
+    @GetMapping("/appointments")
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
     }
 
     //  Get all pending sellers
@@ -40,7 +53,7 @@ public class AdminController {
     public ResponseEntity<?> approveSeller(@PathVariable Long id) {
 
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         user.setSellerStatus(SellerStatus.APPROVED);
         userRepository.save(user);
@@ -53,7 +66,7 @@ public class AdminController {
     public ResponseEntity<?> blockSeller(@PathVariable Long id) {
 
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         user.setSellerStatus(SellerStatus.BLOCKED);
         userRepository.save(user);
@@ -65,7 +78,7 @@ public class AdminController {
     public Property updatePropertyStatus(@PathVariable Long id, @RequestBody Map<String,String> request){
 
         Property property = propertyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Property not found"));
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found"));
 
         PropertyStatus status = PropertyStatus.valueOf(request.get("status"));
 

@@ -5,84 +5,83 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
- private String name;
- 
- @Column(unique = true)
- private String email;
- 
- public Long getId() {
-	return id;
-}
+	private String name;
 
-public void setId(Long id) {
-	this.id = id;
-}
+	@Column(unique = true)
+	private String email;
 
-public String getName() {
-	return name;
-}
+	public Long getId() {
+		return id;
+	}
 
-public void setName(String name) {
-	this.name = name;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public String getEmail() {
-	return email;
-}
+	public String getName() {
+		return name;
+	}
 
-public void setEmail(String email) {
-	this.email = email;
-}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-public String getPassword() {
-	return password;
-}
+	public String getEmail() {
+		return email;
+	}
 
-public void setPassword(String password) {
-	this.password = password;
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-public Role getRole() {
-	return role;
-}
+	public String getPassword() {
+		return password;
+	}
 
-public void setRole(Role role) {
-	this.role = role;
-}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-public boolean isPaid() {
-	return isPaid;
-}
+	public Role getRole() {
+		return role;
+	}
 
-public void setPaid(boolean isPaid) {
-	this.isPaid = isPaid;
-}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
-private String password;
+	public boolean isPaid() {
+		return isPaid;
+	}
 
- public SellerStatus getSellerStatus() {
-	return sellerStatus;
-}
+	public void setPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
 
-public void setSellerStatus(SellerStatus selleStatus) {
-	this.sellerStatus = selleStatus;
-}
+	private String password;
 
-@Enumerated(EnumType.STRING)
- private Role role;
+	public SellerStatus getSellerStatus() {
+		return sellerStatus;
+	}
 
- private boolean isPaid;
- 
- @Enumerated(EnumType.STRING)
- private SellerStatus sellerStatus;
+	public void setSellerStatus(SellerStatus selleStatus) {
+		this.sellerStatus = selleStatus;
+	}
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
+	private boolean isPaid;
+
+	@Enumerated(EnumType.STRING)
+	private SellerStatus sellerStatus;
 }
